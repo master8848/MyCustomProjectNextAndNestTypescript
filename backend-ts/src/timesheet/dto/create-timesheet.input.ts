@@ -1,6 +1,6 @@
 import { InputType, Int, Field } from '@nestjs/graphql';
 
-@InputType()
+@InputType('CreateTimesheetInput')
 export class CreateTimesheetInput {
   @Field(() => Int, { description: 'Example field (placeholder)' })
   exampleField: number;

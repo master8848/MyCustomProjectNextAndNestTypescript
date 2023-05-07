@@ -1,6 +1,6 @@
 import { InputType, Int, Field } from '@nestjs/graphql';
 
-@InputType('Project')
+@InputType('CreateProjectInput')
 export class CreateProjectInput {
   @Field(() => Int, { description: 'Example field (placeholder)' })
   exampleField: number;

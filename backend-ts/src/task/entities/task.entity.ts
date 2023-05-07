@@ -5,7 +5,6 @@ import { User } from 'src/users/entities/user.entity';
 import { Column, Entity, ObjectIdColumn, PrimaryColumn } from 'typeorm';
 
 @Entity()
-@InputType('TaskInput')
 @ObjectType()
 export class Task {
   @ObjectIdColumn()

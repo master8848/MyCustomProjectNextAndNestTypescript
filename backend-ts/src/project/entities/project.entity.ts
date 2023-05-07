@@ -1,10 +1,11 @@
-import { Field } from '@nestjs/graphql';
+import { Field, ObjectType } from '@nestjs/graphql';
 import { Client } from 'src/client/entities/client.entity';
 import { Department } from 'src/department/entities/department.entity';
 import { User } from 'src/users/entities/user.entity';
 import { Column, Entity, ObjectIdColumn, PrimaryColumn } from 'typeorm';
 
 @Entity()
+@ObjectType()
 export class Project {
   @ObjectIdColumn()
   _id: string;

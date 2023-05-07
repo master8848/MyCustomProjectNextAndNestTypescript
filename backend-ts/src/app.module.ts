@@ -2,9 +2,8 @@ import { ApolloDriver } from '@nestjs/apollo';
 import { Module } from '@nestjs/common';
 import { GraphQLModule } from '@nestjs/graphql';
 import { TypeOrmModule } from '@nestjs/typeorm';
-import { env } from 'process';
-import { User } from './users/entities/user.entity';
 import { UsersModule } from './users/users.module';
+import { User } from './users/entities/user.entity';
 import { DepartmentModule } from './department/department.module';
 import { TimesheetModule } from './timesheet/timesheet.module';
 import { ClientModule } from './client/client.module';
@@ -14,8 +13,8 @@ import { ActivityModule } from './activity/activity.module';
 import { SettingsModule } from './settings/settings.module';
 import { EmailTempelateModule } from './email-tempelate/email-tempelate.module';
 import { CustomFieldsModule } from './custom-fields/custom-fields.module';
-import { ConfigModule } from '@nestjs/config';
 import { OrganizationModule } from './organization/organization.module';
+import { ConfigModule } from '@nestjs/config';
 
 @Module({
   imports: [

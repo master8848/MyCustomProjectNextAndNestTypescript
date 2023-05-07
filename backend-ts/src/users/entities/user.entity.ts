@@ -22,7 +22,7 @@ export class User {
   password: string;
 
   @Column()
-  @Field((type) => User)
+  @Field()
   manager: string;
 
   @Column()

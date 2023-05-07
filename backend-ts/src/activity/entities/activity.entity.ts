@@ -7,7 +7,6 @@ import { User } from 'src/users/entities/user.entity';
 import { Column, Entity, ObjectIdColumn, PrimaryColumn } from 'typeorm';
 
 @Entity()
-@InputType('ActivityInput')
 @ObjectType()
 export class Activity {
   @ObjectIdColumn()
@@ -31,9 +30,11 @@ export class Activity {
   @Column()
   @Field()
   taskSpecific: boolean;
+
   @Column()
   @Field()
   projectSpecific: boolean;
+
   @Column()
   @Field()
   global: boolean;

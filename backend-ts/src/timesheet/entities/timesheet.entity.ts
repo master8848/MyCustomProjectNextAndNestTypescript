@@ -8,7 +8,6 @@ import { User } from 'src/users/entities/user.entity';
 import { Column, Entity, ObjectIdColumn, PrimaryColumn } from 'typeorm';
 
 @Entity()
-@InputType('TimesheetInput')
 @ObjectType()
 export class Timesheet {
   @ObjectIdColumn()

@@ -3,10 +3,12 @@ import { Column, Entity, ObjectIdColumn, PrimaryColumn } from 'typeorm';
 
 @Entity()
 @ObjectType()
-class Location {}
+class Location {
+  @Field()
+  country: string;
+}
 
 @Entity()
-@InputType('ClientInput')
 @ObjectType()
 export class Client {
   @ObjectIdColumn()

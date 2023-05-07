@@ -9,10 +9,11 @@ import { v4 as uuid } from 'uuid';
 @Injectable()
 export class UsersService {
   constructor(@InjectRepository(User) private userRepo: Repository<User>) {}
+
   async create(createUserInput: CreateUserInput): Promise<User> {
-    const user = await this.userRepo.create({ ...createUserInput, id: uuid() });
-    this.userRepo.save(user);
-    return user;
+    return this.userRepo.save(
+      this.userRepo.create({ ...createUserInput, id: uuid() }),
+    );
   }
 
   findAll() {

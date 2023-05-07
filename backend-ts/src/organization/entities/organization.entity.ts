@@ -3,7 +3,6 @@ import { User } from 'src/users/entities/user.entity';
 import { Column, Entity, ObjectIdColumn, PrimaryColumn } from 'typeorm';
 
 @Entity()
-@InputType('OrganizationInput')
 @ObjectType()
 export class Organization {
   @ObjectIdColumn()
