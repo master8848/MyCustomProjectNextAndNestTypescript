@@ -1,3 +1,4 @@
+import { Field } from '@nestjs/graphql';
 import { Client } from 'src/client/entities/client.entity';
 import { Department } from 'src/department/entities/department.entity';
 import { User } from 'src/users/entities/user.entity';
@@ -8,46 +9,60 @@ export class Project {
   @ObjectIdColumn()
   _id: string;
   @PrimaryColumn()
+  @Field()
   id: string;
 
   @Column()
+  @Field()
   name: string;
 
-  @Column((type) => Client)
-  client: Client[];
-
-  @Column((type) => User)
-  managers: User[];
-
-  @Column((type) => User)
-  teamMembers: User[];
-
-  @Column((type) => User)
-  observer: User[];
-
-  @Column((type) => User)
-  peogramManager: User[];
+  @Column()
+  @Field((type) => [Client])
+  client: string[];
 
   @Column()
+  @Field((type) => [User])
+  managers: string[];
+
+  @Column()
+  @Field((type) => [User])
+  teamMembers: string[];
+
+  @Column()
+  @Field((type) => [User])
+  observer: string[];
+
+  @Column()
+  @Field((type) => [User])
+  peogramManager: string[];
+
+  @Column()
+  @Field()
   startDate: string;
 
   @Column()
+  @Field()
   endDate: string;
 
   @Column()
+  @Field()
   billable: boolean;
 
   @Column()
+  @Field()
   siteRate: string;
 
-  @Column((type) => Department)
-  department: Department[];
+  @Column()
+  @Field((type) => [Department])
+  department: string[];
 
-  @Column((type) => Project)
-  project: Project;
+  @Column()
+  @Field((type) => Project)
+  project: string;
 
   //
 
   @Column()
+  @Field()
   custom: string;
 }

@@ -1,7 +1,13 @@
-import { ObjectType, Field, Int } from '@nestjs/graphql';
+import { ObjectType, Field, Int, InputType } from '@nestjs/graphql';
+import { Entity, ObjectIdColumn, PrimaryColumn } from 'typeorm';
 
+@Entity()
+@InputType('CustomFieldInput')
 @ObjectType()
 export class CustomField {
-  @Field(() => Int, { description: 'Example field (placeholder)' })
-  exampleField: number;
+  @ObjectIdColumn()
+  _id: string;
+  @PrimaryColumn()
+  @Field()
+  id: string;
 }

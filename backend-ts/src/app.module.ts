@@ -16,10 +16,11 @@ import { EmailTempelateModule } from './email-tempelate/email-tempelate.module';
 import { CustomFieldsModule } from './custom-fields/custom-fields.module';
 import { ConfigModule } from '@nestjs/config';
 import { OrganizationModule } from './organization/organization.module';
+
 @Module({
   imports: [
     ConfigModule.forRoot({
-      envFilePath: '.env',
+      envFilePath: './.env',
       isGlobal: true,
     }),
     TypeOrmModule.forRoot({
@@ -27,23 +28,24 @@ import { OrganizationModule } from './organization/organization.module';
       url: process.env.DATABASEURL,
       synchronize: true,
       useUnifiedTopology: true,
-      entities: ['dist/src/**/*.entity.js'],
+      entities: ['dist/**/*.entity{.ts,.js}'],
     }),
     GraphQLModule.forRoot({
       autoSchemaFile: true,
       driver: ApolloDriver,
+      playground: true,
     }),
     UsersModule,
-    DepartmentModule,
-    TimesheetModule,
-    ClientModule,
-    ProjectModule,
-    TaskModule,
-    ActivityModule,
-    SettingsModule,
-    EmailTempelateModule,
-    CustomFieldsModule,
-    OrganizationModule,
+    // DepartmentModule,
+    // TimesheetModule,
+    // ClientModule,
+    // ProjectModule,
+    // TaskModule,
+    // ActivityModule,
+    // SettingsModule,
+    // EmailTempelateModule,
+    // CustomFieldsModule,
+    // OrganizationModule,
   ],
 })
 export class AppModule {}
