@@ -9,27 +9,36 @@ export class EmailTempelateResolver {
   constructor(private readonly emailTempelateService: EmailTempelateService) {}
 
   @Mutation(() => EmailTempelate)
-  createEmailTempelate(@Args('createEmailTempelateInput') createEmailTempelateInput: CreateEmailTempelateInput) {
+  createEmailTempelate(
+    @Args('createEmailTempelateInput')
+    createEmailTempelateInput: CreateEmailTempelateInput,
+  ) {
     return this.emailTempelateService.create(createEmailTempelateInput);
   }
 
-  @Query(() => [EmailTempelate], { name: 'emailTempelate' })
-  findAll() {
+  @Query(() => [EmailTempelate])
+  getEmailTempelates() {
     return this.emailTempelateService.findAll();
   }
 
-  @Query(() => EmailTempelate, { name: 'emailTempelate' })
-  findOne(@Args('id', { type: () => Int }) id: number) {
+  @Query(() => EmailTempelate)
+  getEmailTempelate(@Args('id') id: string) {
     return this.emailTempelateService.findOne(id);
   }
 
   @Mutation(() => EmailTempelate)
-  updateEmailTempelate(@Args('updateEmailTempelateInput') updateEmailTempelateInput: UpdateEmailTempelateInput) {
-    return this.emailTempelateService.update(updateEmailTempelateInput.id, updateEmailTempelateInput);
+  updateEmailTempelate(
+    @Args('updateEmailTempelateInput')
+    updateEmailTempelateInput: UpdateEmailTempelateInput,
+  ) {
+    return this.emailTempelateService.update(
+      updateEmailTempelateInput.id,
+      updateEmailTempelateInput,
+    );
   }
 
   @Mutation(() => EmailTempelate)
-  removeEmailTempelate(@Args('id', { type: () => Int }) id: number) {
+  removeEmailTempelate(@Args('id') id: string) {
     return this.emailTempelateService.remove(id);
   }
 }

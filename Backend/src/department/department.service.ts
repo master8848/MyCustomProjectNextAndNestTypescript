@@ -1,26 +1,55 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, NotFoundException } from '@nestjs/common';
 import { CreateDepartmentInput } from './dto/create-department.input';
 import { UpdateDepartmentInput } from './dto/update-department.input';
+import { Department } from './entities/department.entity';
+import { InjectRepository } from '@nestjs/typeorm';
+import { Repository } from 'typeorm';
+import { v4 as uuid } from 'uuid';
 
 @Injectable()
 export class DepartmentService {
-  create(createDepartmentInput: CreateDepartmentInput) {
-    return 'This action adds a new department';
+  constructor(
+    @InjectRepository(Department)
+    private departmentRepo: Repository<Department>,
+  ) {}
+
+  async create(createDepartmentInput: CreateDepartmentInput) {
+    return this.departmentRepo.save(
+      this.departmentRepo.create({ ...createDepartmentInput, id: uuid() }),
+    );
   }
 
   findAll() {
-    return `This action returns all department`;
+    return this.departmentRepo.find();
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} department`;
+  findOne(id: string) {
+    try {
+      return this.departmentRepo.findOneOrFail({ where: { id } });
+    } catch (err) {
+      throw new NotFoundException('User not found');
+    }
   }
 
-  update(id: number, updateDepartmentInput: UpdateDepartmentInput) {
-    return `This action updates a #${id} department`;
+  async update(id: string, updateDepartmentInput: UpdateDepartmentInput) {
+    let Department;
+    try {
+      Department = await this.departmentRepo.findOneOrFail({ where: { id } });
+    } catch (err) {
+      throw new NotFoundException('Department not found');
+    }
+    Department = { ...Department, ...updateDepartmentInput };
+    return this.departmentRepo.save(Department);
   }
 
-  remove(id: number) {
-    return `This action removes a #${id} department`;
+  async remove(id: string) {
+    let Department;
+    try {
+      Department = await this.departmentRepo.findOneOrFail({ where: { id } });
+    } catch (err) {
+      throw new NotFoundException('Department not found');
+    }
+    this.departmentRepo.remove(Department);
+    return Department;
   }
 }

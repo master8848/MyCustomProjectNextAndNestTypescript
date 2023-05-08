@@ -13,13 +13,13 @@ export class TaskResolver {
     return this.taskService.create(createTaskInput);
   }
 
-  @Query(() => [Task], { name: 'task' })
-  findAll() {
+  @Query(() => [Task])
+  getTasks() {
     return this.taskService.findAll();
   }
 
-  @Query(() => Task, { name: 'task' })
-  findOne(@Args('id', { type: () => Int }) id: number) {
+  @Query(() => Task)
+  getTask(@Args('id') id: string) {
     return this.taskService.findOne(id);
   }
 
@@ -29,7 +29,7 @@ export class TaskResolver {
   }
 
   @Mutation(() => Task)
-  removeTask(@Args('id', { type: () => Int }) id: number) {
+  removeTask(@Args('id') id: string) {
     return this.taskService.remove(id);
   }
 }

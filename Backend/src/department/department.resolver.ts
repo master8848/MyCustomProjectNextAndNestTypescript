@@ -9,27 +9,34 @@ export class DepartmentResolver {
   constructor(private readonly departmentService: DepartmentService) {}
 
   @Mutation(() => Department)
-  createDepartment(@Args('createDepartmentInput') createDepartmentInput: CreateDepartmentInput) {
+  createDepartment(
+    @Args('createDepartmentInput') createDepartmentInput: CreateDepartmentInput,
+  ) {
     return this.departmentService.create(createDepartmentInput);
   }
 
-  @Query(() => [Department], { name: 'department' })
-  findAll() {
+  @Query(() => [Department])
+  getDepartments() {
     return this.departmentService.findAll();
   }
 
-  @Query(() => Department, { name: 'department' })
-  findOne(@Args('id', { type: () => Int }) id: number) {
+  @Query(() => Department)
+  getDepartment(@Args('id') id: string) {
     return this.departmentService.findOne(id);
   }
 
   @Mutation(() => Department)
-  updateDepartment(@Args('updateDepartmentInput') updateDepartmentInput: UpdateDepartmentInput) {
-    return this.departmentService.update(updateDepartmentInput.id, updateDepartmentInput);
+  updateDepartment(
+    @Args('updateDepartmentInput') updateDepartmentInput: UpdateDepartmentInput,
+  ) {
+    return this.departmentService.update(
+      updateDepartmentInput.id,
+      updateDepartmentInput,
+    );
   }
 
   @Mutation(() => Department)
-  removeDepartment(@Args('id', { type: () => Int }) id: number) {
+  removeDepartment(@Args('id') id: string) {
     return this.departmentService.remove(id);
   }
 }

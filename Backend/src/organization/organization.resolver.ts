@@ -9,27 +9,36 @@ export class OrganizationResolver {
   constructor(private readonly organizationService: OrganizationService) {}
 
   @Mutation(() => Organization)
-  createOrganization(@Args('createOrganizationInput') createOrganizationInput: CreateOrganizationInput) {
+  createOrganization(
+    @Args('createOrganizationInput')
+    createOrganizationInput: CreateOrganizationInput,
+  ) {
     return this.organizationService.create(createOrganizationInput);
   }
 
-  @Query(() => [Organization], { name: 'organization' })
-  findAll() {
+  @Query(() => [Organization])
+  getOrganizations() {
     return this.organizationService.findAll();
   }
 
-  @Query(() => Organization, { name: 'organization' })
-  findOne(@Args('id', { type: () => Int }) id: number) {
+  @Query(() => Organization)
+  getOrganization(@Args('id') id: string) {
     return this.organizationService.findOne(id);
   }
 
   @Mutation(() => Organization)
-  updateOrganization(@Args('updateOrganizationInput') updateOrganizationInput: UpdateOrganizationInput) {
-    return this.organizationService.update(updateOrganizationInput.id, updateOrganizationInput);
+  updateOrganization(
+    @Args('updateOrganizationInput')
+    updateOrganizationInput: UpdateOrganizationInput,
+  ) {
+    return this.organizationService.update(
+      updateOrganizationInput.id,
+      updateOrganizationInput,
+    );
   }
 
   @Mutation(() => Organization)
-  removeOrganization(@Args('id', { type: () => Int }) id: number) {
+  removeOrganization(@Args('id') id: string) {
     return this.organizationService.remove(id);
   }
 }

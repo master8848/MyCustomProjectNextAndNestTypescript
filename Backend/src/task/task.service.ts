@@ -1,9 +1,13 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, NotFoundException } from '@nestjs/common';
 import { CreateTaskInput } from './dto/create-task.input';
 import { UpdateTaskInput } from './dto/update-task.input';
-
+import { InjectRepository } from '@nestjs/typeorm';
+import { Repository } from 'typeorm';
+import { v4 as uuid } from 'uuid';
+import { Task } from './entities/task.entity';
 @Injectable()
 export class TaskService {
+  constructor(@InjectRepository(Task) private TaskRepo: Repository<Task>) {}
   create(createTaskInput: CreateTaskInput) {
     return 'This action adds a new task';
   }
@@ -12,15 +16,15 @@ export class TaskService {
     return `This action returns all task`;
   }
 
-  findOne(id: number) {
+  findOne(id: string) {
     return `This action returns a #${id} task`;
   }
 
-  update(id: number, updateTaskInput: UpdateTaskInput) {
+  async update(id: string, updateTaskInput: UpdateTaskInput) {
     return `This action updates a #${id} task`;
   }
 
-  remove(id: number) {
+  async remove(id: string) {
     return `This action removes a #${id} task`;
   }
 }

@@ -9,27 +9,36 @@ export class CustomFieldsResolver {
   constructor(private readonly customFieldsService: CustomFieldsService) {}
 
   @Mutation(() => CustomField)
-  createCustomField(@Args('createCustomFieldInput') createCustomFieldInput: CreateCustomFieldInput) {
+  createCustomField(
+    @Args('createCustomFieldInput')
+    createCustomFieldInput: CreateCustomFieldInput,
+  ) {
     return this.customFieldsService.create(createCustomFieldInput);
   }
 
-  @Query(() => [CustomField], { name: 'customFields' })
-  findAll() {
+  @Query(() => [CustomField])
+  getCustomFields() {
     return this.customFieldsService.findAll();
   }
 
-  @Query(() => CustomField, { name: 'customField' })
-  findOne(@Args('id', { type: () => Int }) id: number) {
+  @Query(() => CustomField)
+  getCustomField(@Args('id') id: string) {
     return this.customFieldsService.findOne(id);
   }
 
   @Mutation(() => CustomField)
-  updateCustomField(@Args('updateCustomFieldInput') updateCustomFieldInput: UpdateCustomFieldInput) {
-    return this.customFieldsService.update(updateCustomFieldInput.id, updateCustomFieldInput);
+  updateCustomField(
+    @Args('updateCustomFieldInput')
+    updateCustomFieldInput: UpdateCustomFieldInput,
+  ) {
+    return this.customFieldsService.update(
+      updateCustomFieldInput.id,
+      updateCustomFieldInput,
+    );
   }
 
   @Mutation(() => CustomField)
-  removeCustomField(@Args('id', { type: () => Int }) id: number) {
+  removeCustomField(@Args('id') id: string) {
     return this.customFieldsService.remove(id);
   }
 }

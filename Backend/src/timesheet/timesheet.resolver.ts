@@ -9,27 +9,34 @@ export class TimesheetResolver {
   constructor(private readonly timesheetService: TimesheetService) {}
 
   @Mutation(() => Timesheet)
-  createTimesheet(@Args('createTimesheetInput') createTimesheetInput: CreateTimesheetInput) {
+  createTimesheet(
+    @Args('createTimesheetInput') createTimesheetInput: CreateTimesheetInput,
+  ) {
     return this.timesheetService.create(createTimesheetInput);
   }
 
-  @Query(() => [Timesheet], { name: 'timesheet' })
-  findAll() {
+  @Query(() => [Timesheet])
+  getTimesheets() {
     return this.timesheetService.findAll();
   }
 
-  @Query(() => Timesheet, { name: 'timesheet' })
-  findOne(@Args('id', { type: () => Int }) id: number) {
+  @Query(() => Timesheet)
+  getTimesheet(@Args('id') id: string) {
     return this.timesheetService.findOne(id);
   }
 
   @Mutation(() => Timesheet)
-  updateTimesheet(@Args('updateTimesheetInput') updateTimesheetInput: UpdateTimesheetInput) {
-    return this.timesheetService.update(updateTimesheetInput.id, updateTimesheetInput);
+  updateTimesheet(
+    @Args('updateTimesheetInput') updateTimesheetInput: UpdateTimesheetInput,
+  ) {
+    return this.timesheetService.update(
+      updateTimesheetInput.id,
+      updateTimesheetInput,
+    );
   }
 
   @Mutation(() => Timesheet)
-  removeTimesheet(@Args('id', { type: () => Int }) id: number) {
+  removeTimesheet(@Args('id') id: string) {
     return this.timesheetService.remove(id);
   }
 }

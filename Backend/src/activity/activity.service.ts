@@ -1,26 +1,53 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, NotFoundException } from '@nestjs/common';
 import { CreateActivityInput } from './dto/create-activity.input';
 import { UpdateActivityInput } from './dto/update-activity.input';
-
+import { Activity } from './entities/activity.entity';
+import { InjectRepository } from '@nestjs/typeorm';
+import { Repository } from 'typeorm';
+import { v4 as uuid } from 'uuid';
 @Injectable()
 export class ActivityService {
+  constructor(
+    @InjectRepository(Activity) private activityRepo: Repository<Activity>,
+  ) {}
+
   create(createActivityInput: CreateActivityInput) {
-    return 'This action adds a new activity';
+    return this.activityRepo.save(
+      this.activityRepo.create({ ...createActivityInput, id: uuid() }),
+    );
   }
 
   findAll() {
-    return `This action returns all activity`;
+    return this.activityRepo.find();
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} activity`;
+  findOne(id: string) {
+    try {
+      return this.activityRepo.findOneOrFail({ where: { id } });
+    } catch (err) {
+      throw new NotFoundException('Activity not found');
+    }
   }
 
-  update(id: number, updateActivityInput: UpdateActivityInput) {
-    return `This action updates a #${id} activity`;
+  async update(id: string, updateActivityInput: UpdateActivityInput) {
+    let Activity;
+    try {
+      Activity = await this.activityRepo.findOneOrFail({ where: { id } });
+    } catch (err) {
+      throw new NotFoundException('Activity not found');
+    }
+    Activity = { ...Activity, ...updateActivityInput };
+    return this.activityRepo.save(Activity);
   }
 
-  remove(id: number) {
-    return `This action removes a #${id} activity`;
+  async remove(id: string) {
+    let Activity;
+    try {
+      Activity = await this.activityRepo.findOneOrFail({ where: { id } });
+    } catch (err) {
+      throw new NotFoundException('Activity not found');
+    }
+    this.activityRepo.remove(Activity);
+    return Activity;
   }
 }

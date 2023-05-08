@@ -9,27 +9,34 @@ export class SettingsResolver {
   constructor(private readonly settingsService: SettingsService) {}
 
   @Mutation(() => Setting)
-  createSetting(@Args('createSettingInput') createSettingInput: CreateSettingInput) {
+  createSetting(
+    @Args('createSettingInput') createSettingInput: CreateSettingInput,
+  ) {
     return this.settingsService.create(createSettingInput);
   }
 
-  @Query(() => [Setting], { name: 'settings' })
-  findAll() {
+  @Query(() => [Setting])
+  getSettings() {
     return this.settingsService.findAll();
   }
 
-  @Query(() => Setting, { name: 'setting' })
-  findOne(@Args('id', { type: () => Int }) id: number) {
+  @Query(() => Setting)
+  getSetting(@Args('id') id: string) {
     return this.settingsService.findOne(id);
   }
 
   @Mutation(() => Setting)
-  updateSetting(@Args('updateSettingInput') updateSettingInput: UpdateSettingInput) {
-    return this.settingsService.update(updateSettingInput.id, updateSettingInput);
+  updateSetting(
+    @Args('updateSettingInput') updateSettingInput: UpdateSettingInput,
+  ) {
+    return this.settingsService.update(
+      updateSettingInput.id,
+      updateSettingInput,
+    );
   }
 
   @Mutation(() => Setting)
-  removeSetting(@Args('id', { type: () => Int }) id: number) {
+  removeSetting(@Args('id') id: string) {
     return this.settingsService.remove(id);
   }
 }

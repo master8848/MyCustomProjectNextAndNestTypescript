@@ -1,7 +1,12 @@
-import { InputType, Int, Field } from '@nestjs/graphql';
-
+import { InputType, Field } from '@nestjs/graphql';
 @InputType('CreateOrganizationInput')
 export class CreateOrganizationInput {
-  @Field(() => Int, { description: 'Example field (placeholder)' })
-  exampleField: number;
+  @Field()
+  name: string;
+
+  @Field((type) => [String])
+  members: string[];
+
+  @Field()
+  custom: string;
 }

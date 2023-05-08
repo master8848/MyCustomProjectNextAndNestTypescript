@@ -9,27 +9,34 @@ export class ActivityResolver {
   constructor(private readonly activityService: ActivityService) {}
 
   @Mutation(() => Activity)
-  createActivity(@Args('createActivityInput') createActivityInput: CreateActivityInput) {
+  createActivity(
+    @Args('createActivityInput') createActivityInput: CreateActivityInput,
+  ) {
     return this.activityService.create(createActivityInput);
   }
 
-  @Query(() => [Activity], { name: 'activity' })
-  findAll() {
+  @Query(() => [Activity])
+  getActivities() {
     return this.activityService.findAll();
   }
 
-  @Query(() => Activity, { name: 'activity' })
-  findOne(@Args('id', { type: () => Int }) id: number) {
+  @Query(() => Activity)
+  getActivity(@Args('id') id: string) {
     return this.activityService.findOne(id);
   }
 
   @Mutation(() => Activity)
-  updateActivity(@Args('updateActivityInput') updateActivityInput: UpdateActivityInput) {
-    return this.activityService.update(updateActivityInput.id, updateActivityInput);
+  updateActivity(
+    @Args('updateActivityInput') updateActivityInput: UpdateActivityInput,
+  ) {
+    return this.activityService.update(
+      updateActivityInput.id,
+      updateActivityInput,
+    );
   }
 
   @Mutation(() => Activity)
-  removeActivity(@Args('id', { type: () => Int }) id: number) {
+  removeActivity(@Args('id') id: string) {
     return this.activityService.remove(id);
   }
 }

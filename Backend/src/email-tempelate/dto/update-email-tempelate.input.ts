@@ -5,6 +5,6 @@ import { InputType, Field, Int, PartialType } from '@nestjs/graphql';
 export class UpdateEmailTempelateInput extends PartialType(
   CreateEmailTempelateInput,
 ) {
-  @Field(() => Int)
-  id: number;
+  @Field()
+  id: string;
 }
